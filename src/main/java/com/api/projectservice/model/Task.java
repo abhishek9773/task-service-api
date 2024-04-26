@@ -29,5 +29,6 @@ public class Task {
 
   private LocalDateTime deadline;
   private LocalDateTime createdAt;
+  private String description;
 
 }

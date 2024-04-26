@@ -15,11 +15,11 @@ public interface TaskService {
 
   Task updateTask(Long id, Task updatedTask, Long userId) throws Exception;
 
-  void deleteTask(Long id);
+  void deleteTask(Long id) throws Exception;
 
   Task assignedToUser(Long userId, Long taskId) throws Exception;
 
-  List<Task> assignedUsrTask(Long userId, TaskStatus status);
+  List<Task> assignedUsersTask(Long userId, TaskStatus status);
 
   Task completeTask(Long taskId) throws Exception;
 
