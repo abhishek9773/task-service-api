@@ -9,7 +9,7 @@ public interface TaskService {
 
   Task createTask(Task task, String requesterRole) throws Exception;
 
-  Task getTaskById(Long id) throws Exception;
+  Task getTaskById() throws Exception;
 
   List<Task> getAllTask(TaskStatus status);
 
