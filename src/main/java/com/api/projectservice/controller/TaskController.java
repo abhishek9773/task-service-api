@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,7 +48,7 @@ public class TaskController {
     UserDto user = userService.getuserProfile(jwt);
     Task task = taskService.getTaskById();
 
-    return new ResponseEntity<>(task, HttpStatus.CREATED);
+    return new ResponseEntity<>(task, HttpStatus.OK);
   }
 
   @GetMapping("/user")
@@ -57,7 +58,7 @@ public class TaskController {
     UserDto user = userService.getuserProfile(jwt);
     List<Task> tasks = taskService.assignedUsersTask(user.getId(), status);
 
-    return new ResponseEntity<>(tasks, HttpStatus.CREATED);
+    return new ResponseEntity<>(tasks, HttpStatus.OK);
   }
 
   @GetMapping()
@@ -67,7 +68,7 @@ public class TaskController {
     UserDto user = userService.getuserProfile(jwt);
     List<Task> tasks = taskService.getAllTask(status);
 
-    return new ResponseEntity<>(tasks, HttpStatus.CREATED);
+    return new ResponseEntity<>(tasks, HttpStatus.OK);
   }
 
   @PutMapping("/{id}/user/{userid}/assigned")
@@ -77,7 +78,7 @@ public class TaskController {
     UserDto user = userService.getuserProfile(jwt);
     Task task = taskService.assignedToUser(userid, id);
 
-    return new ResponseEntity<>(task, HttpStatus.CREATED);
+    return new ResponseEntity<>(task, HttpStatus.OK);
   }
 
   @PutMapping("/{id}/user/{userid}/assigned")
@@ -87,7 +88,24 @@ public class TaskController {
     UserDto user = userService.getuserProfile(jwt);
     Task task = taskService.updateTask(id, req, user.getId());
 
+    return new ResponseEntity<>(task, HttpStatus.OK);
+  }
+
+  @PutMapping("/{id}/complete")
+  public ResponseEntity<Task> completeTask(@PathVariable Long id) throws Exception {
+
+    Task task = taskService.completeTask(id);
+
     return new ResponseEntity<>(task, HttpStatus.CREATED);
+  }
+
+  @DeleteMapping("/{id}")
+  public ResponseEntity<Void> deleteTask(@PathVariable Long id) throws Exception {
+
+    taskService.deleteTask(id);
+    ;
+
+    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
 
 }
