@@ -14,3 +14,12 @@ spring:
 
 server:
   port: 5002
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8070/eurka/
